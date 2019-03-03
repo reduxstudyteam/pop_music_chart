@@ -36,8 +36,12 @@ const styleSheet = {
 };
 
 class TableComponent extends PureComponent {
+  convertName = name => {
+    return name.split(" ").join("+");
+  };
+
   render() {
-    const { dataSource, goToDetailPage } = this.props;
+    const { dataSource, goToDetailPage, goToYoutube } = this.props;
     return (
       <Fragment>
         <Table striped>
@@ -48,6 +52,7 @@ class TableComponent extends PureComponent {
               <th scope="col">가수명</th>
               <th scope="col">재생 횟수</th>
               <th scope="col">청취 횟수</th>
+              <th scope="col">유튜브 가기</th>
             </tr>
           </thead>
           <tbody>
@@ -70,6 +75,17 @@ class TableComponent extends PureComponent {
                 </TD>
                 <TD>{addComma(item.playcount)} 번</TD>
                 <TD>{addComma(item.listeners)} 번</TD>
+                <TD>
+                  <a
+                    href={`https://www.youtube.com/results?search_query=${this.convertName(
+                      item.name
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    유튜브 보기
+                  </a>
+                </TD>
               </tr>
             ))}
           </tbody>
