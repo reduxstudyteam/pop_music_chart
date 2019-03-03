@@ -1,18 +1,39 @@
+//--------------------
+// import core
+//--------------------
 import React, { Fragment } from "react";
+
+//--------------------
+// import third-party
+//--------------------
 import { Table } from "styled-table-component";
 import styled from "styled-components";
 
+//--------------------
+// import utils
+//--------------------
 import addComma from "../../utils/addComma.js";
 
+//--------------------
+// styled-component
+//--------------------
 export const TD = styled.td`
   text-align: center;
 `;
 
+//---------------------------
+// another css in js (학습용)
+//---------------------------
 const styleSheet = {
   table: {
     width: "100px"
   }
 };
+
+function goToListen(artistName) {
+  artistName = artistName.split(" ").join("+");
+  console.log(`https://www.youtube.com/results?search_query=${artistName}`);
+}
 
 const TableComponent = dataSource => {
   return (
@@ -25,8 +46,6 @@ const TableComponent = dataSource => {
             <th scope="col">가수명</th>
             <th scope="col">재생 횟수</th>
             <th scope="col">청취 횟수</th>
-            <th scope="col">재생가능여부</th>
-            <th scope="col">듣기</th>
           </tr>
         </thead>
         <tbody>
@@ -43,8 +62,6 @@ const TableComponent = dataSource => {
               <TD>{item.name}</TD>
               <TD>{addComma(item.playcount)} 번</TD>
               <TD>{addComma(item.listeners)} 번</TD>
-              <TD>{item.streamable === 0 ? "재생불가" : "재생가능"}</TD>
-              <TD>듣기</TD>
             </tr>
           ))}
         </tbody>
