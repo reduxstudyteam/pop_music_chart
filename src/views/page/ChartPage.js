@@ -6,16 +6,19 @@ import React, { Component, Fragment } from "react";
 //--------------------
 // import third-party
 //--------------------
-
 import Axios from "axios";
 
 //--------------------
 // import presentation component
 //--------------------
 import TableComponent from "../component/table";
-import NavbarComponent from "../component/navbar";
 
-class MainPage extends Component {
+//--------------------
+// import util
+//--------------------
+import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL } from "../../utils/secret";
+
+class ChartPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +41,7 @@ class MainPage extends Component {
   //--------------------
   fetchData = () => {
     const { pageNumber, fetchDataItemLength } = this.state;
-    const url = `http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=0def6e95e8d18f5e614ceca88cfb5e62&format=json`;
+    const url = `${REACT_APP_API_BASE_URL}?method=chart.gettopartists&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
     Axios.get(url).then(response => {
       this.setState({
         fetchDataSource: response.data.artists.artist
@@ -49,15 +52,27 @@ class MainPage extends Component {
   //--------------------
   //
   //--------------------
+  goToDetailPage = (artistName, uid) => {
+    this.props.history.push({
+      pathname: `/detail/${uid}`,
+      state: { artistName }
+    });
+  };
+
+  //--------------------
+  //
+  //--------------------
   render() {
     const { fetchDataSource } = this.state;
     return (
       <Fragment>
-        <NavbarComponent />
-        <TableComponent dataSource={fetchDataSource} />
+        <TableComponent
+          dataSource={fetchDataSource}
+          goToDetailPage={this.goToDetailPage}
+        />
       </Fragment>
     );
   }
 }
 
-export default MainPage;
+export default ChartPage;

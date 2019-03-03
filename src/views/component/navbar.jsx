@@ -14,7 +14,7 @@ export default class NavbarComponent extends Component {
     return (
       <Container fluid>
         <Navbar expandSm dark>
-          <Nav start>
+          <Nav>
             <NavbarLink dark brand href="#">
               Music Chart
             </NavbarLink>
