@@ -11,7 +11,7 @@ import Axios from "axios";
 //--------------------
 // import util
 //--------------------
-import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL } from "../../utils/secret";
+import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL, REACT_APP_API_GET_INFO_ARTIST_METHOD } from "../../utils/secret";
 
 //---------------------------
 // another css in js (학습용)
@@ -25,10 +25,12 @@ const styleSheet = {
   },
   leftElem: {
     width: "min-content",
-    overflow: "scroll"
+    // overflow: "scroll"
+    marginRight: "10px"
   },
   rightElem: {
-    width: "min-content"
+    // width: "min-content",
+    marginLeft: "10px"
   },
   imgContainer: {
     width: "600px",
@@ -38,20 +40,24 @@ const styleSheet = {
     marginBottom: "20px"
   },
   artistInfo: {
-    width: "1250px",
     marginBottom: "20px"
   },
   similarArtistContainer: {
+    width: "100%",
     display: "flex",
     justifyContent: "space-between"
   },
   similarArtistItem: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   similarArtistImage: {
+    width: "30%",
     marginRight: "10px"
+  },
+  similarArtistName: {
+    widht: " 70%"
   },
   addInfoContainer: {
     display: "flex",
@@ -89,7 +95,7 @@ class ArtistDetailPage extends Component {
   componentDidMount() {
     const artistName = this.props.location.state.artistName;
     Axios.get(
-      `${REACT_APP_API_BASE_URL}?method=artist.getInfo&artist=${artistName}&api_key=${REACT_APP_API_KEY}&format=json`
+      `${REACT_APP_API_BASE_URL}?method=${REACT_APP_API_GET_INFO_ARTIST_METHOD}&artist=${artistName}&api_key=${REACT_APP_API_KEY}&format=json`
     ).then(res => {
       const fetchedData = res.data.artist;
       this.setState(
@@ -147,10 +153,6 @@ class ArtistDetailPage extends Component {
                 : null}
             </div>
           </div>
-        </div>
-        <div style={styleSheet.rightElem}>
-          <div style={styleSheet.artistName}>{this.state.artistName}</div>
-          <div style={styleSheet.artistInfo} className="artistInfo" />
           <div style={styleSheet.similarArtistContainer}>
             {this.state.similarArtist
               ? this.state.similarArtist.map((item, index) => (
@@ -161,12 +163,16 @@ class ArtistDetailPage extends Component {
                         src={item.image[1]["#text"]}
                         alt={item.name}
                       />
-                      <div>{item.name}</div>
+                      <div style={styleSheet.similarArtistName}>{item.name}</div>
                     </div>
                   </a>
                 ))
               : null}
           </div>
+        </div>
+        <div style={styleSheet.rightElem}>
+          <div style={styleSheet.artistName}>{this.state.artistName}</div>
+          <div style={styleSheet.artistInfo} className="artistInfo" />
         </div>
       </div>
     );

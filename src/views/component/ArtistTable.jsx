@@ -20,7 +20,12 @@ import addComma from "../../utils/addComma.js";
 //--------------------
 export const TD = styled.td`
   text-align: center;
+  vertical-align: middle !important;
 `;
+
+export const TH = styled.th`
+  vertical-align: middle !important;
+`
 
 //---------------------------
 // another css in js (학습용)
@@ -35,7 +40,7 @@ const styleSheet = {
   }
 };
 
-class TableComponent extends PureComponent {
+class ArtistTableComponent extends PureComponent {
   convertName = name => {
     return name.split(" ").join("+");
   };
@@ -58,7 +63,7 @@ class TableComponent extends PureComponent {
           <tbody>
             {dataSource.map((item, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
+                <TH scope="row">{index + 1}</TH>
                 <TD>
                   <img
                     style={styleSheet.table}
@@ -95,4 +100,4 @@ class TableComponent extends PureComponent {
   }
 }
 
-export default TableComponent;
+export default ArtistTableComponent;

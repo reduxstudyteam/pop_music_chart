@@ -11,14 +11,14 @@ import Axios from "axios";
 //--------------------
 // import presentation component
 //--------------------
-import TableComponent from "../component/table";
+import TrackTableComponent from "../component/TrackTable";
 
 //--------------------
 // import util
 //--------------------
-import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL } from "../../utils/secret";
+import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL, REACT_APP_API_GET_TOP_TRACK_METHOD } from "../../utils/secret";
 
-class ChartPage extends Component {
+class TrackChartPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,10 +41,10 @@ class ChartPage extends Component {
   //--------------------
   fetchData = () => {
     const { pageNumber, fetchDataItemLength } = this.state;
-    const url = `${REACT_APP_API_BASE_URL}?method=chart.gettopartists&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
+    const url = `${REACT_APP_API_BASE_URL}?method=${REACT_APP_API_GET_TOP_TRACK_METHOD}&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
     Axios.get(url).then(response => {
       this.setState({
-        fetchDataSource: response.data.artists.artist
+        fetchDataSource: response.data.tracks.track
       });
     });
   };
@@ -66,7 +66,7 @@ class ChartPage extends Component {
     const { fetchDataSource } = this.state;
     return (
       <Fragment>
-        <TableComponent
+        <TrackTableComponent
           dataSource={fetchDataSource}
           goToDetailPage={this.goToDetailPage}
         />
@@ -75,4 +75,4 @@ class ChartPage extends Component {
   }
 }
 
-export default ChartPage;
+export default TrackChartPage;
