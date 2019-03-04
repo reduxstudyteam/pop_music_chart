@@ -23,6 +23,9 @@ export const TD = styled.td`
   vertical-align: middle !important;
 `;
 
+export const TH = styled.th`
+  vertical-align: middle !important;
+`
 //---------------------------
 // another css in js (학습용)
 //---------------------------
@@ -59,7 +62,7 @@ class TrackTableComponent extends PureComponent {
           <tbody>
             {dataSource.map((item, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
+                <TH scope="row">{index + 1}</TH>
                 <TD>
                   <img
                     style={styleSheet.table}

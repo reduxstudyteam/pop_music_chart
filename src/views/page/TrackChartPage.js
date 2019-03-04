@@ -16,7 +16,7 @@ import TrackTableComponent from "../component/TrackTable";
 //--------------------
 // import util
 //--------------------
-import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL } from "../../utils/secret";
+import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL, REACT_APP_API_GET_TOP_TRACK_METHOD } from "../../utils/secret";
 
 class TrackChartPage extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class TrackChartPage extends Component {
   //--------------------
   fetchData = () => {
     const { pageNumber, fetchDataItemLength } = this.state;
-    const url = `${REACT_APP_API_BASE_URL}?method=chart.gettoptracks&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
+    const url = `${REACT_APP_API_BASE_URL}?method=${REACT_APP_API_GET_TOP_TRACK_METHOD}&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
     Axios.get(url).then(response => {
       this.setState({
         fetchDataSource: response.data.tracks.track

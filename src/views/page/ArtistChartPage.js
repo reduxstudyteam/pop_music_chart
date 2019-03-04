@@ -16,7 +16,7 @@ import ArtistTableComponent from "../component/ArtistTable";
 //--------------------
 // import util
 //--------------------
-import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL } from "../../utils/secret";
+import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL, REACT_APP_API_GET_TOP_ARTIST_METHOD } from "../../utils/secret";
 
 class ArtistChartPage extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class ArtistChartPage extends Component {
   //--------------------
   fetchData = () => {
     const { pageNumber, fetchDataItemLength } = this.state;
-    const url = `${REACT_APP_API_BASE_URL}?method=chart.gettopartists&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
+    const url = `${REACT_APP_API_BASE_URL}?method=${REACT_APP_API_GET_TOP_ARTIST_METHOD}&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
     Axios.get(url).then(response => {
       this.setState({
         fetchDataSource: response.data.artists.artist
