@@ -11,7 +11,11 @@ import Axios from "axios";
 //--------------------
 // import util
 //--------------------
-import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL, REACT_APP_API_GET_INFO_ARTIST_METHOD } from "../../utils/secret";
+import {
+  REACT_APP_API_KEY,
+  REACT_APP_API_BASE_URL,
+  REACT_APP_API_GET_INFO_ARTIST_METHOD
+} from "../../utils/secret";
 
 //---------------------------
 // another css in js (학습용)
@@ -43,17 +47,15 @@ const styleSheet = {
     marginBottom: "20px"
   },
   similarArtistContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between"
+    width: "100%"
   },
   similarArtistItem: {
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
+    margin: "10px 0"
   },
   similarArtistImage: {
-    width: "30%",
+    width: "50px",
     marginRight: "10px"
   },
   similarArtistName: {
@@ -89,7 +91,16 @@ class ArtistDetailPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      artistName: ""
+      artistName: "",
+      artistImage: [],
+      artistInfo: "",
+      similarArtist: [],
+      listener: "",
+      playCounter: "",
+      onTour: "",
+      tag: [],
+      queryString: "",
+      videoId: ""
     };
   }
   componentDidMount() {
@@ -101,6 +112,7 @@ class ArtistDetailPage extends Component {
       this.setState(
         {
           artistName: fetchedData.name,
+          queryString: fetchedData.name,
           artistImage: fetchedData.image[5]["#text"],
           artistInfo: fetchedData.bio.content,
           similarArtist: fetchedData.similar.artist,
@@ -113,6 +125,35 @@ class ArtistDetailPage extends Component {
           document.querySelector(
             ".artistInfo"
           ).innerHTML = this.state.artistInfo;
+
+          //--------------------
+          // fetching Youtube api
+          //--------------------
+
+          let optionParams = {
+            q: this.state.queryString,
+            part: "snippet",
+            key: "AIzaSyBOAiyakGP6djO2Rc0nwnz3WmQn-Ll_jfo",
+            type: "video",
+            maxResults: 10,
+            regionCode: "KR",
+            videoDuration: "short"
+          };
+
+          optionParams.q = encodeURI(optionParams.q);
+
+          let url = "https://www.googleapis.com/youtube/v3/search?";
+          for (let option in optionParams) {
+            url += option + "=" + optionParams[option] + "&";
+          }
+
+          url = url.substr(0, url.length - 1);
+
+          Axios.get(url)
+            .then(res =>
+              this.setState({ videoId: res.data.items[0].id.videoId })
+            )
+            .catch(e => console.error(e));
         }
       );
     });
@@ -163,7 +204,9 @@ class ArtistDetailPage extends Component {
                         src={item.image[1]["#text"]}
                         alt={item.name}
                       />
-                      <div style={styleSheet.similarArtistName}>{item.name}</div>
+                      <div style={styleSheet.similarArtistName}>
+                        {item.name}
+                      </div>
                     </div>
                   </a>
                 ))
@@ -173,6 +216,17 @@ class ArtistDetailPage extends Component {
         <div style={styleSheet.rightElem}>
           <div style={styleSheet.artistName}>{this.state.artistName}</div>
           <div style={styleSheet.artistInfo} className="artistInfo" />
+          <div>
+            <iframe
+              width="500"
+              height="300"
+              src={`https://www.youtube.com/embed/${this.state.videoId}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title={this.state.queryString + "player"}
+            />
+          </div>
         </div>
       </div>
     );

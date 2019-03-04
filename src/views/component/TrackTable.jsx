@@ -25,7 +25,7 @@ export const TD = styled.td`
 
 export const TH = styled.th`
   vertical-align: middle !important;
-`
+`;
 //---------------------------
 // another css in js (학습용)
 //---------------------------
@@ -45,7 +45,7 @@ class TrackTableComponent extends PureComponent {
   };
 
   render() {
-    const { dataSource, goToDetailPage, goToYoutube } = this.props;
+    const { dataSource, goToDetailPage } = this.props;
     return (
       <Fragment>
         <Table striped>
@@ -68,12 +68,16 @@ class TrackTableComponent extends PureComponent {
                     style={styleSheet.table}
                     src={item.image[item.image.length - 1]["#text"]}
                     alt={item.name}
-                    onClick={() => goToDetailPage(item.artist.name, item.artist.mbid)}
+                    onClick={() =>
+                      goToDetailPage(item.artist.name, item.artist.mbid)
+                    }
                   />
                 </TD>
                 <TD
                   style={styleSheet.pointer}
-                  onClick={() => goToDetailPage(item.artist.name, item.artist.mbid)}
+                  onClick={() =>
+                    goToDetailPage(item.artist.name, item.artist.mbid)
+                  }
                 >
                   {item.artist.name}
                 </TD>

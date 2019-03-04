@@ -25,7 +25,7 @@ export const TD = styled.td`
 
 export const TH = styled.th`
   vertical-align: middle !important;
-`
+`;
 
 //---------------------------
 // another css in js (학습용)
@@ -46,7 +46,7 @@ class ArtistTableComponent extends PureComponent {
   };
 
   render() {
-    const { dataSource, goToDetailPage, goToYoutube } = this.props;
+    const { dataSource, goToDetailPage } = this.props;
     return (
       <Fragment>
         <Table striped>

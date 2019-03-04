@@ -23,9 +23,9 @@ class App extends Component {
       <div className="App">
         <NavbarComponent />
         <Route exact path="/" component={MainPage} />
-        <Route exact path="/artistchart" component={ArtistChartPage} />
-        <Route exact path="/trackchart" component={TrackChartPage} />
-        <Route exact path="/detail/:id" component={ArtistDetailPage} />
+        <Route path="/artistchart" component={ArtistChartPage} />
+        <Route path="/trackchart" component={TrackChartPage} />
+        <Route path="/detail/:id" component={ArtistDetailPage} />
       </div>
     );
   }
