@@ -11,14 +11,14 @@ import Axios from "axios";
 //--------------------
 // import presentation component
 //--------------------
-import TableComponent from "../component/table";
+import ArtistTableComponent from "../component/ArtistTable";
 
 //--------------------
 // import util
 //--------------------
 import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL } from "../../utils/secret";
 
-class ChartPage extends Component {
+class ArtistChartPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +66,7 @@ class ChartPage extends Component {
     const { fetchDataSource } = this.state;
     return (
       <Fragment>
-        <TableComponent
+        <ArtistTableComponent
           dataSource={fetchDataSource}
           goToDetailPage={this.goToDetailPage}
         />
@@ -75,4 +75,4 @@ class ChartPage extends Component {
   }
 }
 
-export default ChartPage;
+export default ArtistChartPage;

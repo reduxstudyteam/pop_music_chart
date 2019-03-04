@@ -20,6 +20,7 @@ import addComma from "../../utils/addComma.js";
 //--------------------
 export const TD = styled.td`
   text-align: center;
+  vertical-align: middle !important;
 `;
 
 //---------------------------
@@ -35,7 +36,7 @@ const styleSheet = {
   }
 };
 
-class TableComponent extends PureComponent {
+class TrackTableComponent extends PureComponent {
   convertName = name => {
     return name.split(" ").join("+");
   };
@@ -50,8 +51,8 @@ class TableComponent extends PureComponent {
               <th scope="col">순위</th>
               <th scope="col">가수 사진</th>
               <th scope="col">가수명</th>
+              <th scope="col">노래 제목</th>
               <th scope="col">재생 횟수</th>
-              <th scope="col">청취 횟수</th>
               <th scope="col">유튜브 가기</th>
             </tr>
           </thead>
@@ -64,17 +65,17 @@ class TableComponent extends PureComponent {
                     style={styleSheet.table}
                     src={item.image[item.image.length - 1]["#text"]}
                     alt={item.name}
-                    onClick={() => goToDetailPage(item.name, item.mbid)}
+                    onClick={() => goToDetailPage(item.artist.name, item.artist.mbid)}
                   />
                 </TD>
                 <TD
                   style={styleSheet.pointer}
-                  onClick={() => goToDetailPage(item.name, item.mbid)}
+                  onClick={() => goToDetailPage(item.artist.name, item.artist.mbid)}
                 >
-                  {item.name}
+                  {item.artist.name}
                 </TD>
+                <TD>{item.name}</TD>
                 <TD>{addComma(item.playcount)} 번</TD>
-                <TD>{addComma(item.listeners)} 번</TD>
                 <TD>
                   <a
                     href={`https://www.youtube.com/results?search_query=${this.convertName(
@@ -95,4 +96,4 @@ class TableComponent extends PureComponent {
   }
 }
 
-export default TableComponent;
+export default TrackTableComponent;

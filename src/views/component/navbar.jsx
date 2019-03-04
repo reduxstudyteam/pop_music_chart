@@ -11,7 +11,10 @@ export default class NavbarComponent extends PureComponent {
         <Navbar expandSm>
           <Nav>
             <NavbarLink brand href="/">
-              Music Chart
+              Artist Chart
+            </NavbarLink>
+            <NavbarLink brand href="/trackchart">
+              Track Chart
             </NavbarLink>
           </Nav>
         </Navbar>
