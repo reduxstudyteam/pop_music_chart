@@ -14,7 +14,8 @@ import Axios from "axios";
 import {
   REACT_APP_API_KEY,
   REACT_APP_API_BASE_URL,
-  REACT_APP_API_GET_INFO_ARTIST_METHOD
+  REACT_APP_API_GET_INFO_ARTIST_METHOD,
+  REACT_APP_YOUTUBE_API_KEY
 } from "../../utils/secret";
 
 //---------------------------
@@ -103,6 +104,10 @@ class ArtistDetailPage extends Component {
       videoId: ""
     };
   }
+
+  //--------------------
+  //
+  //--------------------
   componentDidMount() {
     const artistName = this.props.location.state.artistName;
     Axios.get(
@@ -126,14 +131,14 @@ class ArtistDetailPage extends Component {
             ".artistInfo"
           ).innerHTML = this.state.artistInfo;
 
-          //--------------------
-          // fetching Youtube api
-          //--------------------
+          //---------------------------
+          // generate youtube videoId
+          //---------------------------
 
           let optionParams = {
             q: this.state.queryString,
             part: "snippet",
-            key: "AIzaSyBOAiyakGP6djO2Rc0nwnz3WmQn-Ll_jfo",
+            key: REACT_APP_YOUTUBE_API_KEY,
             type: "video",
             maxResults: 10,
             regionCode: "KR",
@@ -158,6 +163,10 @@ class ArtistDetailPage extends Component {
       );
     });
   }
+
+  //--------------------
+  //
+  //--------------------
 
   render() {
     return (

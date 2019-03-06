@@ -16,7 +16,11 @@ import TrackTableComponent from "../component/TrackTable";
 //--------------------
 // import util
 //--------------------
-import { REACT_APP_API_KEY, REACT_APP_API_BASE_URL, REACT_APP_API_GET_TOP_TRACK_METHOD } from "../../utils/secret";
+import {
+  REACT_APP_API_KEY,
+  REACT_APP_API_BASE_URL,
+  REACT_APP_API_GET_TOP_TRACK_METHOD
+} from "../../utils/secret";
 
 class TrackChartPage extends Component {
   constructor(props) {
