@@ -16,6 +16,7 @@ import ArtistChartPage from "./views/page/ArtistChartPage";
 import TrackChartPage from "./views/page/TrackChartPage";
 import ArtistDetailPage from "./views/page/ArtistDetailPage";
 import NavbarComponent from "./views/component/navbar";
+import ArtistSearchPage from "./views/page/ArtistSearchPage";
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
         <Route path="/artistchart" component={ArtistChartPage} />
         <Route path="/trackchart" component={TrackChartPage} />
         <Route path="/detail/:id" component={ArtistDetailPage} />
+        <Route path="/search" component={ArtistSearchPage} />
       </div>
     );
   }
