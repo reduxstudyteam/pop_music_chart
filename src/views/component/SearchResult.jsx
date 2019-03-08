@@ -58,7 +58,7 @@ class SearchResultComponent extends PureComponent{
             : 
               <div style={styleSheet.wrapper}>
                 <div style={styleSheet.resultHeader}>아티스트 '{searchName}'을 검색하셨습니다.</div>
-                <div style={styleSheet.resultHeader}>총 아티스트 검색결과는 약 {addComma(totalSearch)}개 입니다.</div>
+                <div style={styleSheet.resultHeader}>관련 아티스트 검색결과는 약 {addComma(totalSearch)}개 입니다.</div>
               {
                 dataSource.map((item,index) => (
                   <div key={index} style={styleSheet.searchCard}>
