@@ -9889,6 +9889,13 @@ styled-container-component@^3.0.2:
   dependencies:
     styled-config "^3.0.1"
 
+styled-form-component@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/styled-form-component/-/styled-form-component-3.0.1.tgz#bf6fac0d795be3987edbf3a948ae566f14a9f668"
+  integrity sha512-iFOrY/W3DCIbsAFHcgIkSwrq8361PWInIOezt55XX1Ud4dmZxUOHZ72ZroN/M2Dq72MRGjEitSCJsP48B1vsMA==
+  dependencies:
+    styled-config "^3.0.1"
+
 styled-nav-component@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/styled-nav-component/-/styled-nav-component-3.0.1.tgz#330d65733b52b2819dc8a202ced18f0c9f1ebc2b"
