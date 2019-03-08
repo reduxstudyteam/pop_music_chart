@@ -47,7 +47,7 @@ class SearchResultComponent extends PureComponent{
   };
 
   render(){
-    const {dataSource, totalSearch, searchName } = this.props;
+    const {dataSource, totalSearch, searchName, goToDetailPage } = this.props;
     console.log(dataSource)
     return(
       <Fragment>
@@ -62,10 +62,19 @@ class SearchResultComponent extends PureComponent{
               {
                 dataSource.map((item,index) => (
                   <div key={index} style={styleSheet.searchCard}>
+                  {this.isEmpty(item.image[item.image.length - 1]["#text"]) ? 
                     <img
-                      src={item.image[item.image.length - 1]["#text"]}
-                      alt={item.name}
+                    src="http://gospeldi.com/web/product/big/201510/84_shop1_221066.jpg"
+                    alt={item.name}
+                    onClick={() => goToDetailPage(item.name, item.mbid)}
+                    /> 
+                  :
+                    <img
+                    src={item.image[item.image.length - 1]["#text"]}
+                    alt={item.name}
+                    onClick={() => goToDetailPage(item.name, item.mbid)}
                     />
+                  }
                     <div style={styleSheet.contents}>
                       <p>가수명 : {item.name}</p>
                       <p>청취자 : {addComma(item.listeners)}명</p>

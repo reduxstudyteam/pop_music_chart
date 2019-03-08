@@ -61,6 +61,13 @@ class ArtistSearchPage extends Component {
       alert('검색어를 입력해 주세요')
     });
   };
+
+  goToDetailPage = (artistName, uid) => {
+    this.props.history.push({
+      pathname: `/detail/${uid}`,
+      state: { artistName }
+    });
+  };
   
   
   render(){
@@ -68,7 +75,7 @@ class ArtistSearchPage extends Component {
     return(
       <Fragment>
         <AritstSearchComponent onCreate={this.fetchData}/>
-        <SearchResultComponent dataSource={fetchDataSource} totalSearch={fetchTotalResult} searchName={fetchSearchTerms}/>
+        <SearchResultComponent goToDetailPage={this.goToDetailPage} dataSource={fetchDataSource} totalSearch={fetchTotalResult} searchName={fetchSearchTerms}/>
       </Fragment>
     )
   }
