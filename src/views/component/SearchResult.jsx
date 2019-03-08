@@ -48,7 +48,6 @@ class SearchResultComponent extends PureComponent{
 
   render(){
     const {dataSource, totalSearch, searchName, goToDetailPage } = this.props;
-    console.log(dataSource)
     return(
       <Fragment>
         <div>

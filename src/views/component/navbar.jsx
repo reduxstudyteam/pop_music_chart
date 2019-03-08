@@ -14,7 +14,6 @@ export default class NavbarComponent extends PureComponent {
             </NavbarLink>
             <NavbarLink href="/artistchart">Artist Chart</NavbarLink>
             <NavbarLink href="/trackchart">Track Chart</NavbarLink>
-            <NavbarLink href="/search">Search</NavbarLink>
           </Nav>
         </Navbar>
       </Container>

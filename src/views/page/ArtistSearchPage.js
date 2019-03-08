@@ -12,7 +12,6 @@ import Axios from "axios";
 // import presentation component
 //--------------------
 import AritstSearchComponent from "../component/ArtistSearch";
-import SearchResultComponent from "../component/SearchResult";
 
 //--------------------
 // import util
@@ -27,7 +26,6 @@ class ArtistSearchPage extends Component {
   constructor(props){
     super(props);
     this.state={
-      name: "",
       pageNumber: 1,
       fetchDataItemLength: 50,
       fetchDataSource: [],
@@ -36,25 +34,18 @@ class ArtistSearchPage extends Component {
     }
   }
 
-  // --------------------
-  
-  // --------------------
-  // componentDidMount() {
-  //   this.fetchData(this.state.name);
-  // }
-
-  // --------------------
-  
-  // --------------------
   fetchData = (artist) => {
     const { pageNumber, fetchDataItemLength } = this.state;
     const url = `${REACT_APP_API_BASE_URL}?method=${REACT_APP_API_SEARCH_ARTIST_METHOD}&artist=${artist.name}&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
     Axios.get(url).then(response => {
-      console.log(response);
       this.setState({
         fetchDataSource: response.data.results.artistmatches.artist,
         fetchSearchTerms: response.data.results["opensearch:Query"].searchTerms,
         fetchTotalResult: response.data.results["opensearch:totalResults"]
+      });
+      this.props.history.push({
+        pathname: `/searchresult/${artist.name}`,
+        state: { ...this.state}
       });
     }).catch(error => {
       console.error('검색어를 입력해주세요 : ' ,error)
@@ -62,20 +53,10 @@ class ArtistSearchPage extends Component {
     });
   };
 
-  goToDetailPage = (artistName, uid) => {
-    this.props.history.push({
-      pathname: `/detail/${uid}`,
-      state: { artistName }
-    });
-  };
-  
-  
   render(){
-    const { fetchDataSource,fetchSearchTerms,fetchTotalResult } = this.state;
     return(
       <Fragment>
         <AritstSearchComponent onCreate={this.fetchData}/>
-        <SearchResultComponent goToDetailPage={this.goToDetailPage} dataSource={fetchDataSource} totalSearch={fetchTotalResult} searchName={fetchSearchTerms}/>
       </Fragment>
     )
   }

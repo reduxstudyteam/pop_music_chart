@@ -16,8 +16,6 @@ class AritstSearchComponent extends PureComponent{
     this.state={
       name: ""
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = (e) => {
@@ -33,9 +31,6 @@ class AritstSearchComponent extends PureComponent{
       name: "",
     })
   }
-  
-
-  
 
   render(){
     return(
