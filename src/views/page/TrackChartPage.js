@@ -4,58 +4,21 @@
 import React, { Component, Fragment } from "react";
 
 //--------------------
-// import third-party
-//--------------------
-import Axios from "axios";
-
-//--------------------
 // import presentation component
 //--------------------
 import TrackTableComponent from "../component/TrackTable";
 
 //--------------------
-// import util
+// import reudx modules
 //--------------------
-import {
-  REACT_APP_API_KEY,
-  REACT_APP_API_BASE_URL,
-  REACT_APP_API_GET_TOP_TRACK_METHOD
-} from "../../utils/secret";
+import { connect } from 'react-redux';
+import { getTrackChartAPI } from '../../modules/redux';
 
 class TrackChartPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pageNumber: 1,
-      fetchDataItemLength: 50,
-      fetchDataSource: []
-    };
-    this.fetchData.bind(this);
-  }
-
-  //--------------------
-  //
-  //--------------------
   componentDidMount() {
-    this.fetchData();
+    this.props.getTrackChartAPI();
   }
-
-  //--------------------
-  //
-  //--------------------
-  fetchData = () => {
-    const { pageNumber, fetchDataItemLength } = this.state;
-    const url = `${REACT_APP_API_BASE_URL}?method=${REACT_APP_API_GET_TOP_TRACK_METHOD}&page=${pageNumber}&limit=${fetchDataItemLength}&api_key=${REACT_APP_API_KEY}&format=json`;
-    Axios.get(url).then(response => {
-      this.setState({
-        fetchDataSource: response.data.tracks.track
-      });
-    });
-  };
-
-  //--------------------
-  //
-  //--------------------
+ 
   goToDetailPage = (artistName, uid) => {
     this.props.history.push({
       pathname: `/detail/${uid}`,
@@ -63,20 +26,16 @@ class TrackChartPage extends Component {
     });
   };
 
-  //--------------------
-  //
-  //--------------------
   render() {
-    const { fetchDataSource } = this.state;
+    const { apidata } = this.props;
     return (
       <Fragment>
-        <TrackTableComponent
-          dataSource={fetchDataSource}
-          goToDetailPage={this.goToDetailPage}
-        />
+        <TrackTableComponent dataSource={apidata} goToDetailPage={this.goToDetailPage} />
       </Fragment>
     );
   }
 }
 
-export default TrackChartPage;
+const mapStateToProps = (state, ownProps) => ({ apidata: state.apidata });
+const mapDispatchToProps = { getTrackChartAPI };
+export default connect(mapStateToProps, mapDispatchToProps)(TrackChartPage);
