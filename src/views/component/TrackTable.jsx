@@ -36,6 +36,11 @@ const styleSheet = {
   },
   pointer: {
     cursor: "pointer"
+  },
+  header:{
+    display: "flex",
+    justifyContent: "center",
+    margin: "0px auto",
   }
 };
 
@@ -48,6 +53,7 @@ class TrackTableComponent extends PureComponent {
     const { dataSource, goToDetailPage } = this.props;
     return (
       <Fragment>
+        <h1 style={styleSheet.header}>Track Chart</h1>
         <Table striped>
           <thead>
             <tr>
