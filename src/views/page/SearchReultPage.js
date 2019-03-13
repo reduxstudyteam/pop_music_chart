@@ -13,10 +13,11 @@ export default class SearchResultPage extends Component{
     });
   };
   render(){
-    const { fetchDataSource,fetchSearchTerms,fetchTotalResult } = this.props.location.state;
+    console.log(this.props)
+    const { artists,searchName,searchResult } = this.props.location.state;
     return( 
       <div>
-       <SearchResultComponent goToDetailPage={this.goToDetailPage} dataSource={fetchDataSource} totalSearch={fetchTotalResult} searchName={fetchSearchTerms} />
+       <SearchResultComponent goToDetailPage={this.goToDetailPage} dataSource={artists} totalSearch={searchResult} searchName={searchName} />
       </div>
     )
   }
