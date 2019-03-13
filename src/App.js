@@ -18,13 +18,16 @@ import ArtistDetailPage from "./views/page/ArtistDetailPage";
 import NavbarComponent from "./views/component/navbar";
 import ArtistSearchPage from "./views/page/ArtistSearchPage";
 import SearchResultPage from "./views/page/SearchReultPage";
+
+import AritstSearchComponent from "./views/component/ArtistSearch";
+
 class App extends Component {
   render() {
     return (
       <div className="App">
         <NavbarComponent />
         <Route exact path="/" component={MainPage} />
-        <Route path="/" component={ArtistSearchPage} />
+        <Route path="/" component={AritstSearchComponent} />
         <Route path="/artistchart" component={ArtistChartPage} />
         <Route path="/trackchart" component={TrackChartPage} />
         <Route path="/detail/:id" component={ArtistDetailPage} />
