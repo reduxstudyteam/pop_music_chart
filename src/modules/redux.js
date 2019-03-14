@@ -16,6 +16,7 @@ const GET_DATA = "GET_DATA";
 const SEARCH_DATA = "SEARCH_DATA";
 const GET_SEARCH_NAME = "GET_SEARCH_NAME";
 const GET_SEARCH_RESULT = "GET_SEARCH_RESULT";
+const IS_SEARCHED = "IS_SEARCHED";
 
 export const getData = apidata => ({
   type: "GET_DATA",
@@ -35,6 +36,11 @@ export const getSearchName = searchname => ({
 export const getSearchResult = searchresult => ({
   type: "GET_SEARCH_RESULT",
   searchresult
+})
+
+//초기화를위한 액션생성자
+export const isSearched = () => ({
+  type: "IS_SEARCHED"
 })
 
 export const getArtistChartAPI = () => async dispatch => {
@@ -57,6 +63,8 @@ export const getSearchArtistAPI = artist => async dispatch => {
     dispatch(searchData(response.data.results.artistmatches.artist));
     dispatch(getSearchName(response.data.results["opensearch:Query"].searchTerms));
     dispatch(getSearchResult(response.data.results["opensearch:totalResults"]));
+    // 모든데이터를 가져온뒤 초기화 리듀서 디스패치
+    dispatch(isSearched());
   })
   .catch(error => {
     console.error('검색어를 입력해주세요 : ' ,error)
@@ -82,6 +90,9 @@ export const searchdata = (state = [], action) => {
       return Object.assign({},state,{searchName: action.searchname})
     case GET_SEARCH_RESULT:
       return Object.assign({},state,{searchResult: action.searchresult})
+    // 초기화 시켜주는 리듀서
+    case IS_SEARCHED:
+      return state = {}
     default:
       return state;
   }

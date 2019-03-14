@@ -32,16 +32,36 @@ class AritstSearchComponent extends PureComponent{
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    // 여기서는 setState 를 하는 것이 아니라
-    // 특정 props 가 바뀔 때 설정하고 설정하고 싶은 state 값을 리턴하는 형태로
-    // 사용됩니다.
-    // console.log(nextProps.searchdata)
-    if(nextProps.searchdata.hasOwnProperty('searchResult')){
-      return {value: nextProps.searchdata}
+  //빈값일때 true를 반환해주는 함수
+  isEmpty = (obj) => {
+    for(var key in  obj){
+      if(obj.hasOwnProperty(key))
+        return false;
     }
-    return null; // null 을 리턴하면 따로 업데이트 할 것은 없다라는 의미
-    
+    return true;
+  }
+
+
+  // render() 를 호출하고난 다음에 발생하게 되며, 이전 props 및 state를 가져 올 수가 있음
+  // 우리에겐 이전 props(prevProps)가 필요하다!
+  componentDidUpdate(prevProps) {
+
+    // 마지막으로 디스패치한 값이 빈 객체니까 빈 객체가 잘 들어왔을시 조건
+    if(this.isEmpty(this.props.searchdata)){
+
+      // 세번째로 받은 디스패치가 searchResult 이므로 이 해당 프로퍼티를 찾는 조건
+      // object.assign으로 복제된 최종값을 알고 싶기 때문
+      if(prevProps.searchdata.hasOwnProperty('searchResult')){
+        
+        // prevProps에 우리가 원하는 값이 있으니 이를 활용해 해당 구문 실행
+        prevProps.history.push({
+          pathname: `/searchresult/${prevProps.searchdata.searchName}`,
+          state: prevProps.searchdata
+        });
+
+        // currentProps는 이미 빈 객체 이기때문에  다른 검색 요청을 하기전까지 아무변화는 일어나지않음.
+      }
+    }
   }
 
   handleChange = (e) => {
@@ -50,27 +70,15 @@ class AritstSearchComponent extends PureComponent{
     })
   }
   
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.getSearchArtistAPI(this.state);
-    await this.tester();
-  }
-
-  tester = () => {
-    if (this.props.searchdata.hasOwnProperty('searchResult')) {
-      this.props.history.push({
-        pathname: `/searchresult/${this.state.name}`,
-        state: this.props.searchdata
-      });
-      this.setState({
-        name: "",
-      })
-    }
+    this.setState({
+      name: ""
+    })
   }
 
   render(){
-    console.log(this.props.searchdata)
-    // console.log(this.state)
     return(
       <Fragment>
         <form onSubmit={this.handleSubmit} >
