@@ -16,9 +16,7 @@ import ArtistChartPage from "./views/page/ArtistChartPage";
 import TrackChartPage from "./views/page/TrackChartPage";
 import ArtistDetailPage from "./views/page/ArtistDetailPage";
 import NavbarComponent from "./views/component/navbar";
-import ArtistSearchPage from "./views/page/ArtistSearchPage";
 import SearchResultPage from "./views/page/SearchReultPage";
-
 import AritstSearchComponent from "./views/component/ArtistSearch";
 
 class App extends Component {
